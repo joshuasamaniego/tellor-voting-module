@@ -1,56 +1,145 @@
-.Loader__Container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 100vh;
-  background-color: var(--background-color);
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;700&display=swap");
+
+@font-face {
+  font-family: "Renogare Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Renogare Regular"),
+    url("./assets/Renogare-Regular.woff") format("woff");
 }
 
-.Loader {
-  margin-top: 20px;
-  max-width: 15rem;
-  width: 100%;
-  height: auto;
-  stroke-linecap: round;
-}
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
 
-.Loader > circle {
-  fill: none;
-  stroke-width: 3.5;
-  -webkit-animation-name: preloader;
-  animation-name: preloader;
-  -webkit-animation-duration: 3s;
-  animation-duration: 3s;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in-out;
-  animation-timing-function: ease-in-out;
-  -webkit-transform-origin: 170px 170px;
-  transform-origin: 170px 170px;
-  will-change: transform;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: "Inconsolata", monospace;
+  vertical-align: baseline;
 }
-.Loader > circle:nth-of-type(1) {
-  animation-delay: -0.15s;
-  stroke-dasharray: 550;
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
-.Loader > circle:nth-of-type(2) {
-  animation-delay: -0.3s;
-  stroke-dasharray: 500;
+body {
+  line-height: 1;
 }
-.Loader > circle:nth-of-type(3) {
-  animation-delay: -0.45s;
-  stroke-dasharray: 450;
+ol,
+ul {
+  list-style: none;
 }
-.Loader > circle:nth-of-type(4) {
-  animation-delay: -0.6s;
-  stroke-dasharray: 300;
+blockquote,
+q {
+  quotes: none;
 }
-
-@keyframes preloader {
-  50% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: #fafafa;
 }
