@@ -1,17 +1,65 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import WrongNetwork from "./components/WrongNetwork";
+import Loader from "./components/Loader";
+import PleaseConnect from "./components/PleaseConnect";
+import detectEthereumProvider from "@metamask/detect-provider";
+import { ethers } from "ethers";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+//Listening for changes in ChainId (Mainnet/Rinkeby/Others)
+window.ethereum.on("chainChanged", () => {
+  window.location.reload();
+});
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+export const AppContext = React.createContext();
+
+if (typeof window.ethereum !== "undefined") {
+  detectEthereumProvider()
+    .then((res) => {
+      let appContext = {
+        chainId: "",
+        currentAddress: "",
+      };
+
+      if (res.chainId === "0x1") {
+        appContext.chainId = "0x1";
+        appContext.currentAddress = ethers.utils.getAddress(
+          res.selectedAddress
+        );
+
+        ReactDOM.render(
+          <AppContext.Provider value={appContext}>
+            <App />
+          </AppContext.Provider>,
+          document.getElementById("root")
+        );
+      } else if (res.chainId === "0x4") {
+        appContext.chainId = "0x4";
+        appContext.currentAddress = ethers.utils.getAddress(
+          res.selectedAddress
+        );
+
+        ReactDOM.render(
+          <AppContext.Provider value={appContext}>
+            <App />
+          </AppContext.Provider>,
+          document.getElementById("root")
+        );
+      } else if (res.chainId === null) {
+        ReactDOM.render(<Loader />, document.getElementById("root"));
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        ReactDOM.render(<WrongNetwork />, document.getElementById("root"));
+      }
+    })
+    .catch(() =>
+      ReactDOM.render(<PleaseConnect />, document.getElementById("root"))
+    );
+} else {
+  window.alert("Please install MetaMask");
+  window.location.assign("https://metamask.io/");
+}

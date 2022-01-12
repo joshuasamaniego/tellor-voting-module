@@ -1,0 +1,64 @@
+.NavBar {
+  width: 100vw;
+  padding: 50px 100px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.NavBar__Title {
+  width: 100%;
+}
+.NavBar__Left {
+  display: flex;
+  justify-content: flex-end;
+  width: 60%;
+  user-select: none;
+}
+.NavBar__Network {
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  color: #555555;
+  box-sizing: border-box;
+  padding: 8px 30px;
+  height: fit-content;
+  width: auto;
+  border: 2px solid #2dfc9f;
+  border-radius: 25px;
+  font-weight: 700;
+  font-family: "Inconsolata", monospace;
+}
+.NavBar__Address {
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  color: #555555;
+  box-sizing: border-box;
+  padding: 8px 30px;
+  height: fit-content;
+  width: content;
+  border: 2px solid #2dfc9f;
+  border-radius: 25px;
+  font-weight: 700;
+  font-family: "Inconsolata", monospace;
+  margin-left: 20px;
+  display: flex;
+}
+.NavBar__UserIconContainer {
+  width: 22px;
+  height: 22px;
+  position: relative;
+  border: 1px solid #555555;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.NavBar__UserIcon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  border: 1px solid #fafafa;
+  border-radius: 50%;
+}
