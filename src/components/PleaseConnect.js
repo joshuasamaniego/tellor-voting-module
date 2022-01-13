@@ -23,6 +23,8 @@ function PleaseConnect() {
           If you don't have MetaMask currently installed as a browser extension,{" "}
           <a
             href="https://metamask.io/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="PleaseConnect__MetaMaskLink"
           >
             click here

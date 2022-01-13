@@ -1,20 +1,32 @@
-.Loader__Container {
+.TxnLoader {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
   width: 100%;
-  min-height: 100vh;
-  background-color: #fafafa;
+  height: 100vh;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  background-color: rgba(0, 0, 0, 0.4);
 }
-.Loader {
+.TxnLoader h1 {
+  font-size: 1.5rem;
+  color: #fafafa;
+}
+
+.TxnLoader__Icon {
   margin-top: 20px;
   max-width: 15rem;
   width: 100%;
   height: auto;
   stroke-linecap: round;
 }
-.Loader > circle {
+.TxnLoader__Icon > circle {
   fill: none;
   stroke-width: 3.5;
   -webkit-animation-name: preloader;
@@ -29,19 +41,19 @@
   transform-origin: 170px 170px;
   will-change: transform;
 }
-.Loader > circle:nth-of-type(1) {
+.TxnLoader__Icon > circle:nth-of-type(1) {
   animation-delay: -0.15s;
   stroke-dasharray: 550;
 }
-.Loader > circle:nth-of-type(2) {
+.TxnLoader__Icon > circle:nth-of-type(2) {
   animation-delay: -0.3s;
   stroke-dasharray: 500;
 }
-.Loader > circle:nth-of-type(3) {
+.TxnLoader__Icon > circle:nth-of-type(3) {
   animation-delay: -0.45s;
   stroke-dasharray: 450;
 }
-.Loader > circle:nth-of-type(4) {
+.TxnLoader__Icon > circle:nth-of-type(4) {
   animation-delay: -0.6s;
   stroke-dasharray: 300;
 }

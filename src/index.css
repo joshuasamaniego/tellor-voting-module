@@ -137,9 +137,20 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+/* Joshua Samaniego Updates */
+html {
+  width: 100vw;
+  height: 100vh;
+}
 body {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
   background-color: #fafafa;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

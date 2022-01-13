@@ -1,42 +1,114 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/Hero.css";
+//Web3
+import { ethers } from "ethers";
+//Context
+import { AppContext } from "../index";
+//Utils
+import TellorGovABI from "../utils/TellorGovABI.json";
+//Components
+import MetaMaskErrModal from "./MetaMaskErrModal";
+import TxnLoader from "./TxnLoader";
+import TxnModal from "./TxnModal";
 
-function Hero({ currAddr }) {
-  console.log("currAddr from Hero", currAddr);
+function Hero({ currAddr, signer }) {
   //Component State
+  const [loading, setLoading] = useState(false);
   const [justVoted, setJustVoted] = useState(false);
-  //No voteId currently on Mainnet
-  const voteIdMainnet = 78;
-  const voteIdRinkeby = 26;
+  const [errMessage, setErrMessage] = useState(null);
+  const [txnHash, setTxnHash] = useState(null);
+  //Context
+  const data = useContext(AppContext);
+  //Globals
+  const voteIdMainnet = 3;
+  const voteIdRinkeby = 6; //change to 4
+  //Refs
+  const ref = React.createRef();
+  const ErrModal = React.forwardRef((props, ref) => {
+    return <MetaMaskErrModal ref={ref}>{props.children}</MetaMaskErrModal>;
+  });
   //Handlers
-  // const handleVote = async (bool) => {
-  //   if (currentUser) {
-  //     const didAlreadyVote = await currentUser.contracts.instance.methods
-  //       .didVote(voteIdRinkeby, currentUser.address)
-  //       .call();
+  const handleVote = async (bool) => {
+    if (!data) return;
 
-  //     if (!didAlreadyVote) {
-  //       if (currentUser.address && currentUser.network === 1) {
-  //         await currentUser.contracts.instance.methods
-  //           .vote(voteIdMainnet, bool)
-  //           .send({ from: currentUser.address });
-  //         setJustVoted(true);
-  //       } else if (currentUser.address && currentUser.network === 4) {
-  //         // alert('Please sign in on Mainnet to vote!');
-  //         await currentUser.contracts.instance.methods
-  //           .vote(voteIdRinkeby, bool)
-  //           .send({ from: currentUser.address });
-  //         setJustVoted(true);
-  //       }
-  //     } else if (currentUser && didAlreadyVote) {
-  //       alert("You already voted at this address. Thank you for voting!");
-  //     }
-  //   } else {
-  //     alert(
-  //       "Please sign in with the green connect button and MetaMask to cast your vote!"
-  //     );
-  //   }
-  // };
+    let contract;
+    let didAlreadyVote;
+
+    if (data.chainId === "0x1") {
+      contract = new ethers.Contract(
+        data.tellorGovMainnet,
+        TellorGovABI,
+        Object.keys(signer) > 0 ? signer : data.signer
+      );
+
+      didAlreadyVote = await contract.didVote(
+        voteIdMainnet,
+        currAddr.length > 0 ? currAddr : data.currentAddress
+      );
+
+      if (!didAlreadyVote) {
+        setLoading(true);
+        try {
+          contract
+            .vote(voteIdMainnet, bool, false)
+            .then((res) => {
+              setLoading(false);
+              setTxnHash(res.hash);
+              setJustVoted(true);
+            })
+            .catch((err) => {
+              console.log("MetaMask Txn Err: ", err);
+              setLoading(false);
+              setErrMessage(err.message);
+            });
+        } catch (err) {
+          // console.log("ERR::: ", err.message);
+          setErrMessage(err.message);
+        }
+      } else {
+        setErrMessage(
+          "Execution reverted: You already voted at this address on this network. Thank you for voting!"
+        );
+      }
+    } else if (data.chainId === "0x4") {
+      contract = new ethers.Contract(
+        data.tellorGovRinkeby,
+        TellorGovABI,
+        Object.keys(signer) > 0 ? signer : data.signer
+      );
+
+      didAlreadyVote = await contract.didVote(
+        voteIdRinkeby,
+        currAddr.length > 0 ? currAddr : data.currentAddress
+      );
+
+      if (!didAlreadyVote) {
+        setLoading(true);
+        try {
+          contract
+            .vote(voteIdRinkeby, bool, false)
+            .then((res) => {
+              setLoading(false);
+              setTxnHash(res.hash);
+              setJustVoted(true);
+            })
+            .catch((err) => {
+              //console.log("MetaMask Txn Err: ", err);
+              setLoading(false);
+              setErrMessage(err.message);
+            });
+        } catch (err) {
+          // console.log("MetaMask Txn Err:: ", err.message);
+          setErrMessage(err.message);
+        }
+      } else {
+        setErrMessage(
+          "Execution reverted: You already voted at this address on this network. Thank you for voting!"
+        );
+      }
+    }
+  };
+
   return (
     <div className="Hero">
       <div className="Hero__View">
@@ -52,16 +124,32 @@ function Hero({ currAddr }) {
         <div className="Hero__CTAContainer">
           <div className="Hero__CTAColumn">
             <h2>Click here to vote in favor of this proposal</h2>
-            <button className="Hero__VoteInFavor">Vote in Favor</button>
+            <button
+              onClick={() => handleVote(true)}
+              className="Hero__VoteInFavor"
+            >
+              Vote in Favor
+            </button>
           </div>
           <div className="Hero__CTAColumn">
             <h2>Click here to vote in opposition of this proposal</h2>
-            <button className="Hero__VoteInOpposition">
+            <button
+              onClick={() => handleVote(false)}
+              className="Hero__VoteInOpposition"
+            >
               Vote in Opposition
             </button>
           </div>
         </div>
       </div>
+      <ErrModal innerRef={ref}>{[errMessage, setErrMessage]}</ErrModal>
+      <TxnLoader loading={loading} />
+      <TxnModal
+        chainId={data.chainId}
+        address={currAddr.length > 0 ? currAddr : data.currentAddress}
+        justVoted={justVoted}
+        txnHash={txnHash}
+      />
     </div>
   );
 }
