@@ -21,7 +21,7 @@ function Hero({ currAddr, signer }) {
   const data = useContext(AppContext);
   //Globals
   const voteIdMainnet = 3;
-  const voteIdRinkeby = 6; //change to 4
+  const voteIdRinkeby = 2; //change to 4
   //Refs
   const ref = React.createRef();
   const ErrModal = React.forwardRef((props, ref) => {

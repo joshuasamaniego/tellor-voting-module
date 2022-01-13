@@ -6,8 +6,6 @@ import { truncateAddr } from "../utils/helpers";
 function TxnModal({ chainId, address, justVoted, txnHash }) {
   //Component State
   const [voted, setVoted] = useState(false);
-  const dummy =
-    "0xc2d37b616b5f1cd07df6234f692b147bc07749793c091da6813119f13ab15409";
 
   useEffect(() => {
     setVoted(justVoted);
@@ -20,7 +18,7 @@ function TxnModal({ chainId, address, justVoted, txnHash }) {
     setVoted(false);
   };
   return (
-    <div className="TxnModal" style={{ display: voted ? "flex" : "flex" }}>
+    <div className="TxnModal" style={{ display: voted ? "flex" : "none" }}>
       <div className="TxnModal__Content">
         <div className="TxnModal__Exit">
           <Close className="TxnModal__ExitIcon" onClick={closeModal} />
@@ -32,19 +30,19 @@ function TxnModal({ chainId, address, justVoted, txnHash }) {
               : "Thank you for voting!"}
           </h1>
           <p>To view your transaction on etherscan, click below:</p>
-          {dummy ? (
+          {txnHash ? (
             chainId === "0x1" ? (
               <a
-                href={`https://etherscan.io/tx/${dummy}`}
+                href={`https://etherscan.io/tx/${txnHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-              >{`https://etherscan.io/tx/${dummy}`}</a>
+              >{`https://etherscan.io/tx/${txnHash}`}</a>
             ) : (
               <a
-                href={`https://rinkeby.etherscan.io/tx/${dummy}`}
+                href={`https://rinkeby.etherscan.io/tx/${txnHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-              >{`https://rinkeby.etherscan.io/tx/${dummy}`}</a>
+              >{`https://rinkeby.etherscan.io/tx/${txnHash}`}</a>
             )
           ) : null}
         </div>
