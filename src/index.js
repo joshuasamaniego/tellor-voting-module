@@ -13,14 +13,24 @@ window.ethereum.on("chainChanged", () => {
   window.location.reload();
 });
 
+const tellorGovMainnet = "0x51d4088d4EeE00Ae4c55f46E0673e9997121DB00";
+const tellorGovRinkeby = "0xA64Bb0078eB80c97484f3f09Adb47b9B73CBcA00";
 export const AppContext = React.createContext();
+export const provider = new ethers.providers.Web3Provider(
+  window.ethereum,
+  "any"
+);
 
 if (typeof window.ethereum !== "undefined") {
   detectEthereumProvider()
     .then((res) => {
+      const signer = provider.getSigner();
       let appContext = {
         chainId: "",
         currentAddress: "",
+        signer: signer,
+        tellorGovMainnet: tellorGovMainnet,
+        tellorGovRinkeby: tellorGovRinkeby,
       };
 
       if (res.chainId === "0x1") {
@@ -56,9 +66,10 @@ if (typeof window.ethereum !== "undefined") {
         ReactDOM.render(<WrongNetwork />, document.getElementById("root"));
       }
     })
-    .catch(() =>
-      ReactDOM.render(<PleaseConnect />, document.getElementById("root"))
-    );
+    .catch((err) => {
+      console.log("MetaMask Error: ", err);
+      ReactDOM.render(<PleaseConnect />, document.getElementById("root"));
+    });
 } else {
   window.alert("Please install MetaMask");
   window.location.assign("https://metamask.io/");

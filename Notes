@@ -1,4 +1,0 @@
-1. [ ] Figure out why @metamask/detect-provider gives back null value so frequently.
-    - leads to unnecessary loading times.
-2. [ ] Figure out how to resolve web3 and webpack error
-    - so I can use web3 for global context.

@@ -13,10 +13,10 @@ function Nav({ currAddr }) {
 
   return (
     <div className="NavBar">
-      <div className="NavBar__Right">
+      <div className="NavBar__Left">
         <TellorGrey className="NavBar__Title" />
       </div>
-      <div className="NavBar__Left">
+      <div className="NavBar__Right">
         <Tippy content="To switch networks, use MetaMask extension.">
           <h1 className="NavBar__Network">{`Network: ${
             data.chainId === "0x1" ? "Mainnet" : "Rinkeby"
