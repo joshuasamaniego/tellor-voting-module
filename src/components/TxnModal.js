@@ -1,24 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../styles/TxnModal.css";
 import { ReactComponent as Close } from "../assets/CloseX.svg";
 import { truncateAddr } from "../utils/helpers";
 
-function TxnModal({ chainId, address, justVoted, txnHash }) {
-  //Component State
-  const [voted, setVoted] = useState(false);
-
-  useEffect(() => {
-    setVoted(justVoted);
-    return () => {
-      setVoted(false);
-    };
-  }, [justVoted]);
-
+function TxnModal({ chainId, address, justVoted, setJustVoted, txnHash }) {
   const closeModal = () => {
-    setVoted(false);
+    setJustVoted(false);
   };
+
   return (
-    <div className="TxnModal" style={{ display: voted ? "flex" : "none" }}>
+    <div className="TxnModal" style={{ display: justVoted ? "flex" : "none" }}>
       <div className="TxnModal__Content">
         <div className="TxnModal__Exit">
           <Close className="TxnModal__ExitIcon" onClick={closeModal} />

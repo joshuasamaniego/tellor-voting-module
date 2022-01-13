@@ -20,8 +20,8 @@ function Hero({ currAddr, signer }) {
   //Context
   const data = useContext(AppContext);
   //Globals
-  const voteIdMainnet = 3;
-  const voteIdRinkeby = 2; //change to 4
+  const voteIdMainnet = 3; //current
+  const voteIdRinkeby = 9; //current
   //Refs
   const ref = React.createRef();
   const ErrModal = React.forwardRef((props, ref) => {
@@ -148,6 +148,7 @@ function Hero({ currAddr, signer }) {
         chainId={data.chainId}
         address={currAddr.length > 0 ? currAddr : data.currentAddress}
         justVoted={justVoted}
+        setJustVoted={setJustVoted}
         txnHash={txnHash}
       />
     </div>

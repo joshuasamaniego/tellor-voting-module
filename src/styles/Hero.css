@@ -12,6 +12,8 @@
 }
 .Hero__View h2 {
   font-weight: 500;
+  font-size: 1.25rem !important;
+  line-height: 1.5rem !important;
   margin: 2% 0;
 }
 .Hero__LinkToWhitePaper {
@@ -19,6 +21,8 @@
 }
 .Hero__LinkToWhitePaper a {
   font-weight: 500;
+  font-size: 1.05rem !important;
+  line-height: 1.5rem !important;
   color: #262626;
 }
 .Hero__CTAContainer {
@@ -31,6 +35,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  padding: 0 2%;
 }
 .Hero__CTAColumn h2 {
   margin-bottom: 10%;
@@ -60,7 +66,7 @@
   box-sizing: border-box;
   padding: 12px 40px;
   height: 50px;
-  width: content;
+  width: fit-content;
   border: 2px solid #2dfc9f;
   border-radius: 25px;
   font-weight: 500;
@@ -68,4 +74,51 @@
 }
 .Hero__VoteInOpposition:hover {
   cursor: pointer;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 850px) {
+  .Hero__CTAContainer {
+    flex-direction: column;
+  }
+  .Hero__VoteInFavor {
+    margin-bottom: 10%;
+  }
+  .Hero__View {
+    padding: 50px 120px 80px 120px;
+  }
+}
+
+@media (max-width: 800px) {
+  .Hero__View {
+    padding-top: 30px;
+  }
+  .Hero__View h1 {
+    text-align: center;
+    font-size: 48px;
+  }
+  .Hero__View h2 {
+    text-align: center;
+  }
+  .Hero__View h3 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 525px) {
+  .Hero__View {
+    padding: 30px 80px 80px 80px;
+  }
+}
+
+@media (max-width: 420px) {
+  .Hero__View {
+    padding: 30px 50px 80px 50px;
+  }
+}
+
+@media (max-width: 350px) {
+  .Hero__View {
+    padding: 30px 20px 80px 20px;
+  }
 }
