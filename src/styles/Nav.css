@@ -8,7 +8,8 @@
   align-items: center;
 }
 .NavBar__Title {
-  width: 100%;
+  width: 150px;
+  display: block;
 }
 .NavBar__Right {
   display: flex;
@@ -93,7 +94,7 @@
 }
 @media (max-width: 910px) {
   .NavBar__Left {
-    width: 75%;
+    width: 100%;
   }
   .NavBar__Right {
     display: flex;
@@ -108,9 +109,9 @@
   .NavBar {
     flex-direction: column;
   }
-  .NavBar__Left {
-    width: 50%;
-    margin-left: 25%;
+  .NavBar__Title {
+    margin: 0 auto;
+    margin-bottom: 15px;
   }
   .NavBar__Right {
     align-items: center;
@@ -119,30 +120,18 @@
     margin-left: 0;
   }
 }
-@media (max-width: 700px) {
-  .NavBar__Left {
-    width: 60%;
-    margin-left: 30%;
-  }
-}
-@media (max-width: 600px) {
-  .NavBar__Left {
-    width: 70%;
-    margin-left: 35%;
-  }
-}
 @media (max-width: 525px) {
-  .NavBar__Left {
-    width: 80%;
-    margin-left: 38%;
+  .NavBar {
+    padding: 50px;
   }
   .NavBar__Network {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
+    font-size: 1rem;
   }
   .NavBar__Address {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
+    font-size: 1rem;
+  }
+  .NavBar__Right {
+    width: 100%;
   }
   .NavBar__UserIconContainer {
     width: 22px;

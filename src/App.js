@@ -18,9 +18,6 @@ function App() {
   window.ethereum.on("accountsChanged", (accounts) => {
     setCurrAddr(ethers.utils.getAddress(accounts[0]));
     const signerFromProvider = provider.getSigner();
-    signerFromProvider
-      .getAddress()
-      .then((res) => console.log("HERO SIGNER", res));
     setSigner(signerFromProvider);
   });
 

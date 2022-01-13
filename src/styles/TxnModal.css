@@ -53,6 +53,10 @@
   line-height: 1.5rem;
 }
 .TxnModal__Message a {
+  margin-top: 2%;
+  width: 350px;
+  word-wrap: break-word;
+  text-align: center;
   color: #555555;
   overflow: scroll;
 }

@@ -5,7 +5,6 @@ import { ReactComponent as Close } from "../assets/CloseX.svg";
 function MetaMaskErrModal({ children }) {
   //Component State
   const [errorMessage, setErrorMessage] = useState(null);
-  console.log(children);
 
   useEffect(() => {
     if (children[0] && children[0].length > 92) {
